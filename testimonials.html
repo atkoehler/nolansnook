@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>Nolan's Nook & Nest</title>
+
+    <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+
+    <script type="text/javascript" charset="utf-8">
+        $( document ).ready( function() 
+        {
+            var $body = $('body'); //Cache this for performance
+
+            var setBodyScale = function() 
+            {
+                // Tweak the scale, max and min values to taste
+                var scaleSource = $body.width(),
+                scaleFactor = 0.15,                     
+                maxScale = 100,
+                minScale = 15; 
+                
+                // Multiply the width of the body by the scaling factor:
+                var fontSize = scaleSource * scaleFactor; 
+
+                // Enforce the minimum and maximums
+                if (fontSize > maxScale) fontSize = maxScale;
+                if (fontSize < minScale) fontSize = minScale; 
+
+                var contactSize = scaleSource * .5;
+
+                $('body').css('font-size', fontSize + '%');
+
+                // Update background image 
+                // Height should be scaled to 100% browser width
+                var img = new Image();
+                img.src = 'images/logo.png';
+                img.onload = function()
+                {
+                    newHeight = this.height * (scaleSource / this.width);
+                    newHeight = Math.round(newHeight);
+                    document.getElementById('header').style.height = newHeight;
+                }
+//                document.getElementById('contact').style.width = "100%";
+//                alert(document.getElementById('test1').width);
+                alert("end of scale function");
+            }
+
+            var loadTestimonials = function()
+            {
+                var xmlhttp;
+                var xmlDoc;
+                var field = "HELLO";
+                if (window.XMLHttpRequest)
+                {
+                    // Chrome, Firefox or IE7+
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else
+                {
+                    // IE6 or IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+                xmlhttp.open("GET", "testimonials/testimonial1.xml", false);
+                xmlhttp.send();
+                xmlDoc=xmlhttp.responseXML;
+                field = xmlDoc.getElementsByTagName("body")[0].childNodes[0].nodeValue;
+
+                document.getElementById('test1').innerHTML=field;
+            }
+
+            $(window).resize(function()
+            {
+                setBodyScale();
+            });
+
+            // Launch on page load
+            loadTestimonials();            
+            setBodyScale();
+        }); 
+    </script>
+</head>
+<body> 
+<h1>Testimonials</h1>
+<div class="testimonial" id="test1"></div>
+</body>
+</html>
