@@ -1,0 +1,123 @@
+/* Begin Navigation Menu CSS */
+
+/* 
+    Color scheme for menu:
+    #111111 - menu items
+    #eeeeee - background
+    #dddddd - border
+    #111111 - text color   
+*/
+
+#nav
+{
+    clear: both; 
+
+    /* No bullet points or other markings for list items */
+    list-style-type:none;
+
+    /* No margin or padding at this level */
+    margin: 0 0;
+    margin-bottom: 1%;
+    padding: 0;
+    padding-right: 1%;
+
+    float: right;
+
+    /* Text specific settings */
+    text-align: right;
+    font-size: 100%;
+
+    /* Fill entire page */
+    width: 98%;
+}
+
+#nav li
+{
+    position: relative;
+    
+    /* Display on single line */
+    display: inline;
+    
+    /* Text alterations */          
+    text-align: center;
+    text-transform: uppercase;   
+    text-decoration: none;
+
+    white-space:nowrap;
+   
+    z-index: 20;
+}
+
+#nav li.last-child
+{
+    position: relative;
+    
+    /* Display on single line */
+    display: inline;
+    
+    /* Text alterations */          
+    text-align: center;
+    text-transform: uppercase;   
+    text-decoration: none;
+
+    white-space:nowrap;
+}
+
+#nav li.separator
+{
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 0;
+
+    font-size: .9em;
+
+    border: none;
+}
+
+#nav a
+{
+    margin-top: 1%;
+
+    /* One single line */
+    display: inline-block;   
+                
+    /* Set up link color */
+    color: #000;  
+    
+    /* Text alterations */
+    text-align: center;
+    text-transform: capitalize;           
+    text-decoration: none;
+
+    /* Add background colored borders-no alignment change on hover */
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+
+}
+ 
+       
+/* When main bar nav links hovered, make link change */
+#nav li > a:hover,
+#nav li > a:active
+{       
+    /* Set no underline */
+    text-decoration: none;
+    color: brown;
+
+    /* Add borders on hover */
+    border-bottom: 2px solid brown;
+}
+
+
+/* Make current page bold and black text color */
+#home #nav_home, 
+#research #nav_research,
+#projects #nav_projects
+{
+    font-weight: bold;
+}               
+
+
+/* End Navigation Menu CSS */   
+

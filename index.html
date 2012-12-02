@@ -1,0 +1,118 @@
+<html>
+<head>
+    <title>Nolans' Nook & Nest Resort</title>
+    <link href="stylesheets/site.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/menu.css" rel="stylesheet" type="text/css">
+
+
+    <! begin resize font script >
+    <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $( document ).ready( function() 
+        {
+            var $body = $('body'); //Cache this for performance
+
+            var setBodyScale = function() 
+            {
+                // Tweak the scale, max and min values to taste
+                var scaleSource = $body.width(),
+                scaleFactor = 0.15,                     
+                maxScale = 100,
+                minScale = 15; 
+                
+                // Multiply the width of the body by the scaling factor:
+                var fontSize = scaleSource * scaleFactor; 
+
+                // Enforce the minimum and maximums
+                if (fontSize > maxScale) fontSize = maxScale;
+                if (fontSize < minScale) fontSize = minScale; 
+
+                var contactSize = scaleSource * .5;
+
+                $('body').css('font-size', fontSize + '%');
+
+                // Update background image 
+                // Height should be scaled to 100% browser width
+                var img = new Image();
+                img.src = 'images/logo.png';
+                img.onload = function()
+                {
+                    newHeight = this.height * (scaleSource / this.width);
+                    newHeight = Math.round(newHeight);
+                    document.getElementById('header').style.height = newHeight;
+                }
+//                document.getElementById('contact').style.width = "100%";
+//                alert(document.getElementById('logo_image').width);
+            }
+
+            $(window).resize(function()
+            {
+                setBodyScale();
+            });
+
+            // Fire it when the page first loads:
+            setBodyScale();
+        }); 
+    </script>
+
+    <! end resize font script>
+
+</head>
+<body id="home">
+    <div id="body">
+    <div id="header">
+        <img id="logo" src="images/logo.png">
+        <div id="header-content">
+            <div id="address">7104 Old Highway 70, Saint Germain, WI 54558</div>
+            <div id="grad">&nbsp;</div>
+
+            <! TODO: ?php include 'pieces/menu.html'; ?>
+
+            <! begin navigation menu HTML >
+            <div id="menu">
+                <ul id="nav">
+                    <li id="nav_home">
+                        <a id="nav_link" href="">Home</a>
+                    </li>
+                    <li class="separator">
+                        |
+                    </li>
+                    <li id="nav_calendar">
+                        <a id="nav_link" href="">Calendar</a>
+                    </li>
+                    <li class="separator">
+                        |
+                    </li>
+                    <li id="nav_rates">
+                        <a id="nav_link" href="">Rates</a>
+                    </li>
+                    <li class="separator">
+                        |
+                    </li>
+                    <li id="nav_photo"> 
+                        <a id="nav_link" href="">Photos</a>
+                    </li>
+                    <li class="separator">
+                        |
+                    </li>
+                    <li id="nav_testimonials" class="last_child">
+                        <a id="nav_link" href="">Testimonials</a>
+                    </li>
+                </ul>
+            </div>
+            <! end navigation menu HTML >
+
+        </div> <! end header content div>
+    </div> <! end header div>
+
+    <div id="body-content">
+        <img style="width:70%; text-align:center; margin:50px;" src="images/comingsoon.png">
+    </div>
+    </div> <! end body div>
+</body>
+</html>
