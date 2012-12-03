@@ -2,6 +2,12 @@
 <head>
     <title>Nolan's Nook & Nest</title>
 
+
+    <link href="stylesheets/site.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/menu.css" rel="stylesheet" type="text/css">
+
+
+
     <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -45,16 +51,27 @@
                     newHeight = Math.round(newHeight);
                     document.getElementById('header').style.height = newHeight;
                 }
-//                document.getElementById('contact').style.width = "100%";
-//                alert(document.getElementById('test1').width);
-                alert("end of scale function");
             }
+
+            $(window).resize(function()
+            {
+                setBodyScale();
+            });
+
 
             var loadTestimonials = function()
             {
-                var xmlhttp;
-                var xmlDoc;
-                var field = "HELLO";
+                /* Number of testimonials to display */
+                var DISPLAY_TESTIMONIALS = 3;
+
+                var xmlhttp, xmlDoc;
+                var testimonials = new Array();
+                var i, j;
+                var value, bodyValue, dateValue, x, fileName;
+                var divDate, divBody, divID, divContain;
+                var divEnd = "</div>"
+                
+                /* Determine which type type utilize */
                 if (window.XMLHttpRequest)
                 {
                     // Chrome, Firefox or IE7+
@@ -66,27 +83,168 @@
                     xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
                 }
 
-                xmlhttp.open("GET", "testimonials/testimonial1.xml", false);
-                xmlhttp.send();
-                xmlDoc=xmlhttp.responseXML;
-                field = xmlDoc.getElementsByTagName("body")[0].childNodes[0].nodeValue;
+                /* Loop over all the testimonials and grab values for each */
+                i = 1; /* Testimonial file numbers start at 1 */
+                while(true)
+                {
+                    /* All files have similar name ending in number */
+                    fileName = "testimonials/testimonial" + i + ".xml";
 
-                document.getElementById('test1').innerHTML=field;
+                    /* Attempt to acquire the XML file */
+                    xmlhttp.open("GET", fileName, false);
+                    xmlhttp.send();
+                    if (xmlhttp.status == 404)
+                    {
+                        /* Not found, no more exist as they are numbered */
+                        break;
+                    }
+                    else if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                    {
+                        /* Pull out the XML */
+                        xmlDoc=xmlhttp.responseXML;
+
+                        /* If something went wrong with XML go to next */
+                        if (xmlhttp.responseXML == null)
+                        {
+                            i = i + 1; 
+                            continue;
+                        }
+
+                        /* Grab date tag in testimonial */
+                        dateValue = xmlDoc.getElementsByTagName("date")[0].childNodes[0].nodeValue;
+                        /* Grab all paragraph tags in testimonial */
+                        x = xmlDoc.getElementsByTagName("paragraph");
+            
+                        bodyValue = ""; 
+                        /* loop over all the paragraphs in testimonial */
+                        for (j=0; j<x.length; j++)
+                        {
+                            value = x[j].childNodes[0].nodeValue;
+                            bodyValue += "<p class='testpar'>"+value+"</p>";                            
+                        }
+
+                        divDate = "<div class='testimonial-date'>"
+                        divBody = "<div class='testimonial-body'>"
+                        value = divDate + dateValue + divEnd;
+                        value = value + divBody + bodyValue + divEnd;
+                        divID = "testimonial-block";
+                        testimonials[i-1] = value;
+                    }
+
+                    /* Proceed to next file */
+                    i = i+1;
+                }
+                        
+                /* Acquire a random number of indeces based on constant */
+                var numbers = new Array();
+                for (i = 0; i < DISPLAY_TESTIMONIALS; i++)
+                {                                     
+                    numbers[i] = Math.floor(Math.random()*testimonials.length);
+                    for (j = 0; j < i; j++)
+                    {
+                        /* If the same, do the current random number over */
+                        if (numbers[j] == numbers[i])
+                        {
+                            i--;
+                            break;
+                        }
+                    }
+                }
+
+                /* Sort the chosen random indeces */                
+                numbers.sort();
+
+                /* Add testimonials corresponding to random indeces */
+                /* Start with largest index, should be most recent date */
+                for (i = numbers.length-1; i >= 0; i--)
+                {
+                    /* Flip flop between left and right */
+                    if (i % 2 == 0)
+                        divContain = "<div class='testimonial-left'>";
+                    else
+                        divContain = "<div class='testimonial-right'>";
+                        
+                    j = numbers[i];
+                    value = divContain + testimonials[j] + divEnd;
+                    document.getElementById(divID).innerHTML += value;
+                }
+                
             }
-
-            $(window).resize(function()
-            {
-                setBodyScale();
-            });
 
             // Launch on page load
             loadTestimonials();            
             setBodyScale();
         }); 
     </script>
+
 </head>
-<body> 
-<h1>Testimonials</h1>
-<div class="testimonial" id="test1"></div>
+<body id="testimonials">
+    <div id="body">
+    <div id="header">
+        <img id="logo" src="images/logo.png" alt="Nolans' Nook & Nesst">
+        <div id="header-content">
+            <div id="address">7104 Old Highway 70, Saint Germain, WI 54558</div>
+            <div id="grad">&nbsp;</div>
+
+            <! TODO: ?php include 'pieces/menu.html'; ?>
+
+            <! begin navigation menu HTML >
+            <div id="menu">
+                <ul id="nav">
+                    <li id="nav_home">
+                        <a class="nav_link" href="">Home</a>
+                    </li>
+                    <li class="separator">
+                        |
+                    </li>
+                    <li id="nav_calendar">
+                        <a class="nav_link" href="">Calendar</a>
+                    </li>
+                    <li class="separator">
+                        |
+                    </li>
+                    <li id="nav_rates">
+                        <a class="nav_link" href="">Rates</a>
+                    </li>
+                    <li class="separator">
+                        |
+                    </li>
+                    <li id="nav_photo"> 
+                        <a class="nav_link" href="">Photos</a>
+                    </li>
+                    <li class="separator">
+                        |
+                    </li>
+                    <li id="nav_testimonials" class="last_child">
+                        <a class="nav_link" href="testimonials.html">Testimonials</a>
+                    </li>
+                </ul>
+            </div>
+            <! end navigation menu HTML >
+
+        </div> <! end header content div>
+    </div> <! end header div>
+
+    <div id="body-content">
+
+         
+        <div id="page_name">
+            Testimonials
+        </div>
+        <div id="testimonial-block">
+            <noscript>
+            <div id="no_js_message">
+                JavaScript is utilized on this page to load and nicely format a
+handful of testimonials.  Your browser has JavaScript disabled.  If you wish to
+view this page with proper formatting of testimonials and multiple testimonials
+(if more exist), then please enable JavaScript and refresh this page.
+            </div>
+            <div id="no_js_testimonials">
+                <iframe src="testimonials/no-javascript-testimonials.txt" />
+            </div>
+            </noscript>
+        </div>
+    </div> <! end body-content div>
+    </div> <! end body div>
 </body>
 </html>

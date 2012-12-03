@@ -1,0 +1,4 @@
+December 24, 2012
+
+This is a testimonial example that will be loaded when no JavaScript is allowed within the client's browser.  They will also be provided with a message that in order to see nicely formatted testimonials and more than what is in this file, they should enable JavaScript and refresh the page.
+

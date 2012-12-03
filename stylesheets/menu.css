@@ -112,8 +112,10 @@
 
 /* Make current page bold and black text color */
 #home #nav_home, 
-#research #nav_research,
-#projects #nav_projects
+#calendar #nav_calendar,
+#rates #nav_rates,
+#photos #nav_photos,
+#testimonials #nav_testimonials
 {
     font-weight: bold;
 }               

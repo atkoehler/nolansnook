@@ -37,6 +37,19 @@ div
     background-color: #fff;
 }
 
+#page_name
+{
+    margin: 0 auto;
+    padding: 3%;
+
+    width: 90%;
+
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+
+}
+
 #header
 {
     margin: 0 auto;
@@ -90,3 +103,77 @@ div
 
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', gradientType=1);
 }
+
+.testimonial-left
+{
+    margin-left: 1%;
+    margin-bottom: 2%;
+    padding: 3%;
+
+    width: 60%;
+
+    clear: both;
+    float left; 
+
+    text-align: left;
+   
+    border: 1px solid #000; 
+}
+
+.testimonial-right
+{
+    margin-left: 1%;
+    margin-bottom: 2%;
+    padding: 3%;
+
+    width: 60%;
+
+    clear: both;
+    float: right; 
+
+    text-align: left;
+   
+    border: 1px solid #000; 
+}
+
+.testimonial-date
+{
+    font-size: 1em;
+}
+
+.testpar
+{
+    font-size: 1em;
+}
+
+#no_js_message
+{
+    margin: 0 auto;
+    padding: 2% 0;
+    width: 95%;
+
+    font-size: .9em;
+    color: red;
+}
+
+#no_js_testimonials
+{
+    margin: 0 auto;
+    padding: 2%;
+
+    width: 90%;
+}
+
+#no_js_testimonials iframe
+{
+    width: 100%;
+    seamless: seamless;
+
+    /* the below attributes aren't supported in HTML 5 */
+    /* however the seamless attribute does not have much browser support */
+    background-color: transparent;
+    border: 0px none transparent;
+    padding: 0px;
+    overflow: hidden;
+}
+
